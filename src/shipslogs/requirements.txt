@@ -1,0 +1,7 @@
+whatchdog
+PyQt5
+datetime
+pytesseract
+pillow
+mdutils
+getpass

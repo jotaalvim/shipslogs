@@ -1,0 +1,25 @@
+[project]
+
+name = "shipslogs"
+version = "0.0.1"
+keywords = ["screenshots", "productivity", "birds", "combinator birds","logic"]
+
+authors = [
+  { name="João Alvim", email="joaoafonsoalvim@gmail.com" },
+]
+
+description = "FIXME"
+readme = "README.md"
+#requires-python = ">=3.5"
+requires-python = ">=3.7"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    #"pointfree"
+]
+
+
+[project.urls]
+repository = "https://github.com/jotaalvim/shipslogs"
+"Bug Tracker" = "https://github.com/jotaalvim/cbirds/shipslogs"
