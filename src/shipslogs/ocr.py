@@ -16,44 +16,42 @@ else:
     user=data["author_name"]
 
 
-def gettext(onde): # devolve texto de uma imagem de algum lado
+def gettext(path): # devolve texto de uma imagem de algum lado
     
-    return pytesseract.image_to_string(Image.open(onde),lang = 'por+eng')
+    return pytesseract.image_to_string(Image.open(path),lang = 'por+eng')
 
 
-def inseretexto(onde,fich): # dado o diretorio da pasta adiciona ao texto.txt
-    
-    #texto = open(onde+"/texto.txt",'a')
-    #texto.write(ocrt)
-    #texto.close()
-    
+def inseretexto(path,fich): # dado o diretorio da pasta adiciona ao texto.txt
     #print(onde,fich)
 
-    if os.path.exists(onde+'/Diario_de_bordo.md'):
-        # fich "ocr.pdf"
-                
-        if "ocr" in fich:
+    dbordo = os.path.join(path,'Diario_de_bordo.md')
+    ff = os.path.join(path,fich) # final file
 
-            ocrt = gettext(onde+'/'+fich)
-            
-            aula = open (onde+'/Diario_de_bordo.md','a')
-            aula.write(f"\n![]({onde}/{fich})\n")
-            aula.write("\n```\n"+ocrt+"\n```\n")
-            #aula.write("\n---\n")
-        else:
-            aula = open (onde+'/Diario_de_bordo.md','a')
-            aula.write(f"\n![]({onde}/{fich})\n")
-            #aula.write("\n---\n")
-        aula.close()
 
- 
-    else:
-        aula = open (onde+'/Diario_de_bordo.md','a')
+    if not os.path.exists(dbordo):
+        aula = open(dbordo,'a')
         x = datetime.datetime.now()
         ano = x.year
         mes = x.strftime("%B")
         dia = x.day
-        aula.write(f'---\ntitle: \"Diário de bordo\"\nauthor: {user} \ndate: {mes} {dia}, {ano}\ngeometry: margin=2cm\noutput: pdf_document\nfontsize: 100pt\n---\n')
+        aula.write(f'---\ntitle: \"Ship\'s Logs\"\nauthor: {user} \ndate: {mes} {dia}, {ano}\ngeometry: margin=2cm\noutput: pdf_document\nfontsize: 100pt\n---\n')
         aula.close()
-        inseretexto(onde,fich)
-    #pandoc -t latex -o x.pdf x.md
+        #inseretexto(path,fich)
+
+
+    #if os.path.exists(dbordo):
+        # fich "ocr.pdf"
+                
+    if "ocr" in fich:
+        ocrt = gettext(ff)
+        aula = open(dbordo,'a')
+        aula.write(f"\n![]({ff})\n")
+        aula.write(f"\n```\n{ocrt}\n```\n")
+        #aula.write("\n---\n")
+    else:
+        aula = open (dbordo,'a')
+        aula.write(f"\n![]({ff})\n")
+        #aula.write("\n---\n")
+    aula.close()
+
+ 

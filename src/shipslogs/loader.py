@@ -13,28 +13,26 @@ def up(path):
     sorted_filename_list = [ os.path.basename(i) for i in time_sorted_list]
     return sorted_filename_list[-1]#último elemtnos da lista, ficheiro mais recente
 
+
+
 with open('config.json') as json_file: 
     data = json.load(json_file)
 
-def aux ():
+
+
+def getDay():
     #horas a que foi criado
     now = datetime.datetime.now()
-    datadodia = ""
-    #dia-mes-ano
-    dia, mes, ano = str( now.day), str( now.month), str( now.year)
-    ordem = (data["date_format"]).split('-')
+    today = ""
 
+    dia, mes, ano = str( now.day), str( now.month), str( now.year)
+    ordem = (data["date_format"]).split('/')
     for i in ordem:
         ##YY/MM/DD
         if "YY"==i:
-            datadodia+=ano+"-"
+            today+=ano+"-"
         elif "MM"==i:
-            datadodia+=mes+"-"
+            today+=mes+"-"
         else:
-            datadodia+=dia+"-"
-    datadodia=datadodia[:-1]
-    #que aula o alno esta a ter
-    
-    # Topics default name
-    cadeira = "default"
-    return now,datadodia,cadeira
+            today+=dia+"-"
+    return today[:-1]

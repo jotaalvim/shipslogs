@@ -12,14 +12,14 @@ import json
 import subprocess 
 import signal    
 import sys    
-import getopt
+#import getopt
 
 #FAZER DEPOISSS RECEBER ARGUMENTOS
 #PERGUNTAR PELO COMPRIMENTO
 #pri = sys.argv[1]
-oqueestaaestudar = sys.argv
-
-opcs,args = (oqueestaaestudar[1:],"h")
+argv = sys.argv
+print(argv,"O QUE STOUA ESTUDAR")
+opcs,args = (argv[1:],"h")
 if "-h" in opcs:
     print("""
     ********************* Diário de Bordo ********************
@@ -39,7 +39,8 @@ if "-h" in opcs:
 if "-c" in opcs:
     os.system("dbordo_creator")
     quit()
-oqueestaaestudar = sys.argv
+
+#argv = sys.argv
 
 
 
@@ -57,21 +58,15 @@ else:
     pics = data["screenshot_input"]
 
 #diretorio default para guardar
-if data["diary_output"]=="":
-    pathpasta = f"/home/{user}/Documents/" 
+if data["diary_output"]=="": # FIXME
+    pathpasta = f"/home/{user}/Documents/aulas" 
 else:
     pathpasta = data["diary_output"]
-    
-pathpasta+=data["diary_home"]
 
-#cria a pasta da aulas se nao existir
+#pathpasta+=data["diary_home"]
+
+#cria a pasta da aulas se nao existir 
 os.system("mkdir -p " + pathpasta)
-
-
-
-
-
-
 
 
 
@@ -81,35 +76,40 @@ os.system("mkdir -p " + pathpasta)
 #event logger
 class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
-        now,datadodia,cadeira = loader.aux()
+        datadodia = loader.getDay()
 
-        if len(oqueestaaestudar) > 1:
-            cadeira = oqueestaaestudar[1]
-        base = f"{pathpasta}{cadeira}/{datadodia}"
-        #print(base)
+        if len(argv) > 1: 
+            topic = argv[1]
+        else:
+            topic = "default"
+        
+        # FINAL PATH /home/jotaalvim/Documents/aulas/lalalal/2023-6-18/
+        base = os.path.join(pathpasta,topic,datadodia)
+
         #cria pastas para essa aula
-        os.system(f"mkdir -p {base}" )
+        # FIXME VER SE JÀ EXISTE
+        os.system(f"mkdir -p {base}")
             
         #nome da nova foto
         ficheirocriado = loader.up(pics)
-        fc=ficheirocriado
-        n=1
+        fc = ficheirocriado
+        n = 1
         nomes = ""
-        while os.path.exists(base + '/' + fc):
+
+        # FIXME mudar o nome
+        ver = os.path.join(base,fc)
+        print(ver)
+        while os.path.exists(ver):
             nome = fc.split('.')
-            tipo=nome.pop()
-            nome1=nome
-            nome=""
+            tipo = nome.pop()
+            nome1 = nome
+            nome = ""
             for i in nome:
-                nomes+=i+"."
-            nomes=nomes[:-1]
-            fc = nome1+f"-{n}."+tipo
+                nomes += i+"."
+            nomes = nomes[:-1]
+            fc = f"{nome1}-{n}."+tipo
             n+=1
 
-
-        if len(oqueestaaestudar)==1:#data["nome base para usar o horario"]:
-            signal.alarm((horario.fimaula(datetime.datetime.today().weekday(),now.hour,now.minute))*60 - ((now.hour*60+now.minute)*60+now.second))
-        
         # mover para o novo sitio
         #os.system("mv " + pics + f'"{ficheirocriado}"' +" " + base +'/'+fc)
         sleep(1)
@@ -126,31 +126,29 @@ class MyHandler(FileSystemEventHandler):
 
 
 
-
-
 def handler(sig, frame):
-    now,datadodia,cadeira = loader.aux()
-    if len(oqueestaaestudar) >1: #!= data["nome base para usar o horario"]:
-        cadeira = oqueestaaestudar[1]
-    if cadeira == 'NADA':
-        print("nao tens nenhuma cadeira")
-    else:
+    print(
+"""\n======================================
+Handler Final que trata das converções
+======================================""")
+    datadodia = loader.getDay()
 
-        print('a passar para pdf/html', sig)
-        dis = loader.up(f"{pathpasta}")
-        dia = loader.up(f"{pathpasta}{dis}")
-
-        print(f"{pathpasta}{dis}/{dia}/")
-        os.system(f"pandoc -t latex -o {pathpasta}{dis}/{dia}/dbordo.pdf {pathpasta}{dis}/{dia}/Diario_de_bordo.md")
-        os.system(f"pandoc {pathpasta}{dis}/{dia}/Diario_de_bordo.md -V fontsize=12pt -V geometry:margin=1in -o {pathpasta}{dis}/{dia}/dbordo.html")
+    dis = loader.up(f"{pathpasta}")
+    dia = loader.up(f"{pathpasta}{dis}")
+    path = os.path.join(pathpasta,dis,dia)  
+    #print(f"{pathpasta}{dis}/{dia}/",path)
+    
+    dbpdf = os.path.join(path,"dbordo.pdf")
+    dbhtml = os.path.join(path,"dbordo.html")
+    dbmd = os.path.join(path,"Diario_de_bordo.md")
+    os.system(f"pandoc -t latex -o {dbpdf} {dbmd}")
+    os.system(f"pandoc {dbmd} -V fontsize=12pt -V geometry:margin=1in -o {dbhtml}")
     
     sys.exit(0)
 
 
 if __name__ == "__main__":
     
-    #signal.signal(signal.SIGALRM, handler2)
-
     signal.signal(signal.SIGINT, handler)
     #signal.alarm(0)
     
@@ -184,19 +182,3 @@ if __name__ == "__main__":
 
 
 
-#def handler2(sig, frame):
-#    now,datadodia,cadeira = loader.aux()
-#    if len(oqueestaaestudar) >1: #!= data["nome base para usar o horario"]:
-#        cadeira = oqueestaaestudar[1]
-#    if cadeira == 'NADA':
-#        print("nao tens nenhuma cadeira")
-#    else:
-#
-#        print('a passar para pdf/html', sig)
-#        dis = loader.up(f"{pathpasta}")
-#        dia = loader.up(f"{pathpasta}{dis}")
-#
-#        print(f"{pathpasta}{dis}/{dia}/")
-#        os.system(f"pandoc -t latex -o {pathpasta}{dis}/{dia}/dbordo.pdf {pathpasta}{dis}/{dia}/Diario_de_bordo.md")
-#        os.system(f"pandoc {pathpasta}{dis}/{dia}/Diario_de_bordo.md -V fontsize=12pt -V geometry:margin=1in -o {pathpasta}{dis}/{dia}/dbordo.html")
-    

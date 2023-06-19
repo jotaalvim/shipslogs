@@ -2,15 +2,11 @@
 
     "screenshot_input" : "/home/jotaalvim/Pictures/",
 
-    "exemplo de diretorio:(default)":"/home/{user}/Documents/",
+    "diary_output":"/home/jotaalvim/Documents/aulas/",
 
-    "onde colocar as imagens":"",
-    "diary_output":"/home/jotaalvim/Documents/",
+ "diary_home":"FIXME NÂO ESTÀ A SER USADO aulas/",
 
-    "diary_home":"aulas/",
+    "date_format":"YY/MM/DD",
 
-    "date_format":"YY-MM-DD",
-
-    
     "author_name" : ""
 }
