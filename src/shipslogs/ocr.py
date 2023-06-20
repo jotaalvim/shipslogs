@@ -27,7 +27,6 @@ def inseretexto(path,fich): # dado o diretorio da pasta adiciona ao texto.txt
     dbordo = os.path.join(path,'Diario_de_bordo.md')
     ff = os.path.join(path,fich) # final file
 
-
     if not os.path.exists(dbordo):
         aula = open(dbordo,'a')
         x = datetime.datetime.now()
