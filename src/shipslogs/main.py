@@ -94,25 +94,25 @@ class MyHandler(FileSystemEventHandler):
         ocr.inseretexto(base,fc,newName)
    
 
-def handler(sig, frame):
+def handler(sig, frame,path=getDayPath()):
     print(
 """\n======================================
 Handler Final que trata das converções
 ======================================""")
-    path = getDayPath()
+    #path = getDayPath()
+ 
+    #FIXME terminar formatações depois
+    dbpdf = os.path.join(path,'dshipslogs.pdf')
+    dbhtml = os.path.join(path,'dbordo.html')
+    dbdocx = os.path.join(path,'dbordo.docx')
+    dbmd = os.path.join(path,'Diario_de_bordo.md')
+    os.system(f'pandoc -t latex -o {dbpdf} {dbmd}')
 
+    os.system(f'pandoc -t docx -o {dbdocx} {dbmd} ')
 
-    dbpdf = os.path.join(path,"dbordo.pdf")
-    dbhtml = os.path.join(path,"dbordo.html")
-    dbdocx = os.path.join(path,"dbordo.docx")
-    dbmd = os.path.join(path,"Diario_de_bordo.md")
-    os.system(f"pandoc -t latex -o {dbpdf} {dbmd}")
+    os.system(f'pandoc -t html -o {dbhtml} {dbmd} ')
 
-    os.system(f"pandoc -t latex -o {dbpdf} {dbmd}")
-
-    os.system(f"pandoc -s -o {dbpdf} {dbdocx}")
-
-    os.system(f"pandoc {dbmd} -V fontsize=12pt -V geometry:margin=1in -o {dbhtml}")
+    #os.system(f'pandoc {dbmd} -V fontsize=12pt -V geometry:margin=1in -o {dbhtml}')
     
     sys.exit(0)
 

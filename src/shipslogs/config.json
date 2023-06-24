@@ -4,14 +4,17 @@
 
     "diary_output":"/home/jotaalvim/Documents/aulas/",
 
-    "date_format":"YY/MM/DD",
+    "date_format":"YY-MM-DD",
 
     "author_name" : "João Alvim",
 
     "export_formats": {
         "pdf": true,
         "html": true,
-        "docx": true
+        "docx": true,
+        "latex" : true,
+        "beamer":true,
+        "pptx" : true
     }
 
 }

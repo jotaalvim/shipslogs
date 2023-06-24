@@ -12,7 +12,7 @@ def getDay():
     today = ""
 
     dia, mes, ano = str( now.day), str( now.month), str( now.year)
-    ordem = (data["date_format"]).split('/')
+    ordem = (data["date_format"]).split('-')
     for i in ordem:
         ##YY/MM/DD
         if "YY"==i:
@@ -22,7 +22,6 @@ def getDay():
         else:
             today+=dia+"-"
     return today[:-1]
-
 
 
 def count_files(directory):
