@@ -17,15 +17,12 @@ else:
 
 
 def gettext(path): # devolve texto de uma imagem de algum lado
-    
     return pytesseract.image_to_string(Image.open(path),lang = 'por+eng')
 
 
-def inseretexto(path,fich): # dado o diretorio da pasta adiciona ao texto.txt
-    #print(onde,fich)
-
+def inseretexto(path,fich,new): # dado o diretorio da pasta adiciona ao texto.txt
     dbordo = os.path.join(path,'Diario_de_bordo.md')
-    ff = os.path.join(path,fich) # final file
+    ff = os.path.join(path,'images',new)
 
     if not os.path.exists(dbordo):
         aula = open(dbordo,'a')

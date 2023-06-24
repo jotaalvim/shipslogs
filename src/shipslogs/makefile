@@ -3,6 +3,7 @@ install:
 	cp creator.py /usr/local/bin/dbordo_creator
 	chmod +x /usr/local/bin/dbordo 
 	chmod +x /usr/local/bin/dbordo_creator
+	
 
 dependencies:
 	apt install tesseract-ocr

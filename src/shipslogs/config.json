@@ -4,9 +4,14 @@
 
     "diary_output":"/home/jotaalvim/Documents/aulas/",
 
- "diary_home":"FIXME NÂO ESTÀ A SER USADO aulas/",
-
     "date_format":"YY/MM/DD",
 
-    "author_name" : ""
+    "author_name" : "João Alvim",
+
+    "export_formats": {
+        "pdf": true,
+        "html": true,
+        "docx": true
+    }
+
 }
