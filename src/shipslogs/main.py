@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
+
 from getpass import getuser
 from time import sleep
 import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from loader import getDay,getNewName
-import datetime
 
+import datetime
 import ocr
 import json
 import subprocess 
 import signal    
 import sys    
-
+#from transcript import transcript2
 
 #FAZER DEPOISSS RECEBER ARGUMENTOS
 #PERGUNTAR PELO COMPRIMENTO
@@ -20,7 +21,8 @@ import sys
 argv = sys.argv
 
 opcs,args = (argv[1:],"h")
-if "-h" in opcs:
+
+if "-h" in argv:
     print("""
     ********************* Ship's Logs ********************
     
@@ -34,6 +36,7 @@ if "-h" in opcs:
 
             """)
     quit()
+
 
 
 #user
@@ -115,6 +118,56 @@ Handler Final que trata das converções
     #os.system(f'pandoc {dbmd} -V fontsize=12pt -V geometry:margin=1in -o {dbhtml}')
     
     sys.exit(0)
+
+# FIXME DEVIA ESTAR NO OCR
+def transcript2(input,output):
+    print(input,output)
+    #================================================================================
+    # Fazer pastas output
+    os.system(f'mkdir -p {output}')
+    #================================================================================
+    file_paths = []
+    for root, _, files in os.walk(input, topdown=True):
+        
+        for name in files:
+           file_paths.append(os.path.join(root, name))
+
+
+    sorted_file_paths = sorted(file_paths, key=os.path.getmtime)
+
+    for file in sorted_file_paths:
+        #print("adding ->",file)
+        root,fname = os.path.split(file)
+        dbordo = os.path.join(output,'Diario_de_bordo.md')
+
+        if not os.path.exists(dbordo):
+            aula = open(dbordo,'a')
+            x = datetime.datetime.now()
+            ano = x.year
+            mes = x.strftime("%B")
+            dia = x.day
+            aula.write(f'---\ntitle: \"Ship\'s Logs\"\nauthor: {user} \ndate: {mes} {dia}, {ano}\ngeometry: margin=2cm\noutput: pdf_document\nfontsize: 100pt\n---\n')
+            aula.close()
+
+        if "ocr" in fname:
+            ocrt = ocr.gettext(file)
+            #print(ocrt)
+            aula = open(dbordo,'a')
+            aula.write(f"\n![]({file})\n")
+            aula.write(f"\n```\n{ocrt}\n```\n")
+            #aula.write("\n---\n")
+        else:
+            aula = open(dbordo,'a')
+            aula.write(f"\n![]({file})\n")
+            #aula.write("\n---\n")
+        aula.close()
+    handler(1,1,output)
+
+if "-t" in argv:
+    transcript2(argv[2],argv[3])
+    quit()
+
+
 
 
 if __name__ == "__main__":

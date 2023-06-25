@@ -1,5 +1,7 @@
 arranjar forma de criar vários diários no mesmo dia
-    - verificar se já existe um com o mesmo nome?
+    - verificar se já existe um com o mesmo nome? NAO funciona
+    FIX: arranjar um argumento para o nome
 
 
-receber uma diretoria como argumento e construir um diário dela
+texto sai pela borda fora
+    - opção de verbatting no latex 
