@@ -7,7 +7,7 @@ customtkinter.set_default_color_theme("dark-blue")
 
 root = customtkinter.CTk()
 
-root.geometry("600x500")
+root.geometry("500x600")
 
 
 def login():

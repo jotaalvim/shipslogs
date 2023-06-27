@@ -100,21 +100,31 @@ class MyHandler(FileSystemEventHandler):
 def handler(sig, frame,path=getDayPath()):
     print(
 """\n======================================
-Handler Final que trata das converções
+Exporting diary
 ======================================""")
-    #path = getDayPath()
- 
-    #FIXME terminar formatações depois
-    dbpdf = os.path.join(path,'dshipslogs.pdf')
-    dbhtml = os.path.join(path,'dbordo.html')
-    dbdocx = os.path.join(path,'dbordo.docx')
+    # voltar a abrir exports
+
+    with open('config.json') as json_file: 
+        data = json.load(json_file)
+
     dbmd = os.path.join(path,'Diario_de_bordo.md')
-    os.system(f'pandoc -t latex -o {dbpdf} {dbmd}')
+    dfor = data['export_formats']
+    for format in dfor.keys():
+        if dfor[format]:
+            diary = os.path.join(path,"shipslogs."+format)
+            print(diary)
+            os.system(f'pandoc -o {diary} {dbmd}')
 
-    os.system(f'pandoc -t docx -o {dbdocx} {dbmd} ')
-
-    os.system(f'pandoc -t html -o {dbhtml} {dbmd} ')
-
+    #dbpdf = os.path.join(path,'dshipslogs.pdf')
+    #dbhtml = os.path.join(path,'dbordo.html')
+    #dbdocx = os.path.join(path,'dbordo.docx')
+    #
+    #os.system(f'pandoc -t latex -o {dbpdf} {dbmd}')
+#
+    #os.system(f'pandoc -t docx -o {dbdocx} {dbmd} ')
+#
+    #os.system(f'pandoc -t html -o {dbhtml} {dbmd} ')
+#
     #os.system(f'pandoc {dbmd} -V fontsize=12pt -V geometry:margin=1in -o {dbhtml}')
     
     sys.exit(0)

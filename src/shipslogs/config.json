@@ -1,5 +1,4 @@
 {
-
     "screenshot_input" : "/home/jotaalvim/Pictures/",
 
     "diary_output":"/home/jotaalvim/Documents/aulas/",
@@ -10,11 +9,10 @@
 
     "export_formats": {
         "pdf": true,
-        "html": true,
-        "docx": true,
-        "latex" : true,
-        "beamer":true,
-        "pptx" : true
+        "html": false,
+        "docx": false,
+        "latex" : false,
+        "pptx" : false
     }
 
 }
