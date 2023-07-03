@@ -11,3 +11,11 @@ def toogleFormat(format):
 
     with open('config.json', 'w') as jsonFile:
         json.dump(data, jsonFile)
+
+
+def set(format):
+    with open('config.json') as json_file: 
+        data = json.load(json_file)
+
+    return data['export_formats'][format]
+    
