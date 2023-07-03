@@ -21,6 +21,7 @@ def gettext(path): # devolve texto de uma imagem de algum lado
 
 
 def inseretexto(path,fich,new): # dado o diretorio da pasta adiciona ao texto.txt
+    print(path,fich,new)
     dbordo = os.path.join(path,'Diario_de_bordo.md')
     ff = os.path.join(path,'images',new)
 
@@ -32,9 +33,7 @@ def inseretexto(path,fich,new): # dado o diretorio da pasta adiciona ao texto.tx
         dia = x.day
         aula.write(f'---\ntitle: \"Ship\'s Logs\"\nauthor: {user} \ndate: {mes} {dia}, {ano}\ngeometry: margin=2cm\noutput: pdf_document\nfontsize: 100pt\n---\n')
         aula.close()
-        #inseretexto(path,fich)
-    #if os.path.exists(dbordo):
-        # fich "ocr.pdf"
+
                 
     if "ocr" in fich:
         ocrt = gettext(ff)
@@ -47,5 +46,6 @@ def inseretexto(path,fich,new): # dado o diretorio da pasta adiciona ao texto.tx
         aula.write(f"\n![]({ff})\n")
         #aula.write("\n---\n")
     aula.close()
+
 
  

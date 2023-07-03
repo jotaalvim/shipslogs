@@ -39,6 +39,8 @@ if "-h" in argv:
 
 
 
+
+
 #user
 user = getuser()
 
@@ -60,13 +62,18 @@ if data['diary_output']=='': # FIXME
 else:
     pathpasta = data['diary_output']
 
+
+
 #pathpasta+=data["diary_home"]
 #cria a pasta da aulas se nao existir
 os.system('mkdir -p ' + pathpasta)
 
 
-def getDayPath():
-    datadodia = getDay()
+
+
+
+def getDayPath(datadodia=getDay()):
+    #datadodia = getDay()
     if len(argv) > 1: 
         topic = argv[1]
     else:
@@ -78,7 +85,15 @@ class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
      
         # FINAL PATH /home/jotaalvim/Documents/aulas/lalalal/2023-6-18/
-        base = getDayPath()
+        if len(argv) == 3:
+            # cria uma subpasta com um nome passado por arumento
+            # em vez do dia
+            base = getDayPath(argv[-1])
+        else:
+            base = getDayPath()
+
+        print(base)
+
         images = os.path.join(base,'images')
         if not os.path.exists(base):
             os.system(f'mkdir -p {base}')
@@ -95,14 +110,20 @@ class MyHandler(FileSystemEventHandler):
         subprocess.run(["mv",pathinput,pathoutput])
         sleep(1)
         ocr.inseretexto(base,fc,newName)
-   
+
 
 def handler(sig, frame,path=getDayPath()):
     print(
 """\n======================================
 Exporting diary
 ======================================""")
-    # voltar a abrir exports
+
+    if path == getDayPath() and len(argv) == 3:
+        # cria uma subpasta com um nome passado por arumento
+        # em vez do dia
+        path = getDayPath(argv[-1])
+    elif path == getDayPath():
+        path = getDayPath()
 
     with open('config.json') as json_file: 
         data = json.load(json_file)
@@ -114,22 +135,10 @@ Exporting diary
             diary = os.path.join(path,"shipslogs."+format)
             print(diary)
             os.system(f'pandoc -o {diary} {dbmd}')
-
-    #dbpdf = os.path.join(path,'dshipslogs.pdf')
-    #dbhtml = os.path.join(path,'dbordo.html')
-    #dbdocx = os.path.join(path,'dbordo.docx')
-    #
-    #os.system(f'pandoc -t latex -o {dbpdf} {dbmd}')
-#
-    #os.system(f'pandoc -t docx -o {dbdocx} {dbmd} ')
-#
-    #os.system(f'pandoc -t html -o {dbhtml} {dbmd} ')
-#
-    #os.system(f'pandoc {dbmd} -V fontsize=12pt -V geometry:margin=1in -o {dbhtml}')
     
     sys.exit(0)
 
-# FIXME DEVIA ESTAR NO OCR
+
 def transcript2(input,output):
     print(input,output)
     #================================================================================
@@ -165,19 +174,17 @@ def transcript2(input,output):
             aula = open(dbordo,'a')
             aula.write(f"\n![]({file})\n")
             aula.write(f"\n```\n{ocrt}\n```\n")
-            #aula.write("\n---\n")
+
         else:
             aula = open(dbordo,'a')
             aula.write(f"\n![]({file})\n")
-            #aula.write("\n---\n")
+
         aula.close()
     handler(1,1,output)
 
 if "-t" in argv:
     transcript2(argv[2],argv[3])
     quit()
-
-
 
 
 if __name__ == "__main__":

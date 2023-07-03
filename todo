@@ -1,10 +1,11 @@
-arranjar forma de criar vários diários no mesmo dia
-    - verificar se já existe um com o mesmo nome? NAO funciona
-    FIX: arranjar um argumento para o nome
-
+avisar se já existe um com o mesmo nome? 
+    - criar função init que trata de criar todas as coisas
 
 texto sai pela borda fora
     - opção de verbatting no latex
+    - sai fora do pptx, o que fazer?
 
 carregamento de uma diretoria e editar ficheiros de exportação e reexportar
- 
+
+ir escrevendo a medida que é atualizado
+    - muito complexo

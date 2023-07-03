@@ -1,5 +1,6 @@
 import customtkinter
 import loader
+import helpergui
 
 customtkinter.set_appearance_mode("light")
 customtkinter.set_default_color_theme("dark-blue")
@@ -40,35 +41,39 @@ switch_var4 = customtkinter.StringVar(value=True)
 
 # FIXME FAZER Eventos
 def switch_event1():
-    print("switch toggled, current value:", switch_var1.get())
+    helpergui.toogleFormat("pdf")
+
 def switch_event2():
-    print("switch toggled, current value:", switch_var2.get())
+    helpergui.toogleFormat("docx")
+
 def switch_event3():
-    print("switch toggled, current value:", switch_var3.get())
+    helpergui.toogleFormat("html")
+
 def switch_event4():
-    print("switch toggled, current value:", switch_var4.get())
+    helpergui.toogleFormat("latex")
+
+# FIXME find a star value for the switch
 
 switch_1 = customtkinter.CTkSwitch(master=frame, text="pdf", command=switch_event1,
-                                   variable=switch_var1, onvalue=True, offvalue=False)
+                                    onvalue=True, offvalue=False)
 
 switch_1.pack(padx=20, pady=10)
 switch_1.select(1)
 
 switch_2 = customtkinter.CTkSwitch(master=frame, text="docx", command=switch_event2,
-                                   variable=switch_var2, onvalue=True, offvalue=False)
+                                    onvalue=True, offvalue=False)
 switch_2.pack(padx=20, pady=10)
 switch_2.select(1)
 
 switch_3 = customtkinter.CTkSwitch(master=frame, text="html", command=switch_event3,
-                                   variable=switch_var3, onvalue=True, offvalue=False)
+                                   onvalue=True, offvalue=False)
 switch_3.pack(padx=20, pady=10)
 switch_3.select(1)
 
 switch_4 = customtkinter.CTkSwitch(master=frame, text="latex", command=switch_event4,
-                                   variable=switch_var4, onvalue=True, offvalue=False)
+                                    onvalue=True, offvalue=False)
 switch_4.pack(padx=20, pady=10)
 switch_4.select(1)
-
 
 
 root.mainloop()
