@@ -37,13 +37,15 @@ customtkinter.set_default_color_theme("dark-blue")
 root = customtkinter.CTk()
 
 height = 585
-width  = 600
+width  = 800
 
 ix = 100#width - 60*3
 iy = 100#height - 60*3
-print(ix,iy)
+#print(ix,iy)
 
 root.geometry(f'{width}x{height}')
+root.title("Ship's Diary")
+
 
 my_font = ('Arial',20)
 
@@ -51,13 +53,17 @@ my_font = ('Arial',20)
 
 
 def clear_frame():
-   for widgets in root.winfo_children():
-      widgets.destroy()
+    for widgets in root.winfo_children():
+        print(widgets)
+        widgets.destroy()
+
 
 
 
 def settings():
     clear_frame()
+    global frame
+    aname, out, sin, date = helpergui.getSettings()
 
     frame = customtkinter.CTkFrame(master=root)
     frame.grid(row=0, column=0,pady=60,padx=60,ipadx=ix, ipady=iy)
@@ -72,27 +78,30 @@ def settings():
     name = customtkinter.CTkLabel(master=frame, text='Authors Name',font=my_font)
     name.grid(row=2, column=0,pady=12,padx=12)
 
-    nameEntry = customtkinter.CTkEntry(master=frame,placeholder_text="John Hofstadter",font=my_font)
+    nameEntry = customtkinter.CTkEntry(master=frame,placeholder_text=aname,font=my_font,width = 400)
     nameEntry.grid(row=2, column=1,columnspan=2,pady=12,padx=12)
-
+    nameEntry.insert(0,aname)
 
     pathInput = customtkinter.CTkLabel(master=frame, text='ScreenShot Input',font=my_font)
     pathInput.grid(row=3, column=0,pady=12,padx=12)
 
-    pathIEntry = customtkinter.CTkEntry(master=frame,placeholder_text="getPathInput",font=my_font)
+    pathIEntry = customtkinter.CTkEntry(master=frame,placeholder_text=sin,font=my_font,width = 400)
     pathIEntry.grid(row=3, column=1,columnspan=2,pady=12,padx=12)
+    pathIEntry.insert(0,sin)
 
-    pathOutput = customtkinter.CTkLabel(master=frame, text='ScreenShot Input',font=my_font)
+    pathOutput = customtkinter.CTkLabel(master=frame, text='Diary Output',font=my_font)
     pathOutput.grid(row=4, column=0,pady=12,padx=12)
 
-    pathOEntry = customtkinter.CTkEntry(master=frame,placeholder_text="getPathoutput",font=my_font)
+    pathOEntry = customtkinter.CTkEntry(master=frame,placeholder_text=out,font=my_font,width = 400)
     pathOEntry.grid(row=4, column=1,columnspan=2,pady=12,padx=12)
+    pathOEntry.insert(0,out)
 
     dateFormat = customtkinter.CTkLabel(master=frame, text='Date format',font=my_font)
     dateFormat.grid(row=5, column=0,pady=12,padx=12)
 
-    dateFormatEntry = customtkinter.CTkEntry(master=frame,placeholder_text="getDateFormat",font=my_font)
+    dateFormatEntry = customtkinter.CTkEntry(master=frame,placeholder_text=date,font=my_font,width = 400)
     dateFormatEntry.grid(row=5, column=1,columnspan=2,pady=12,padx=12)
+    dateFormatEntry.insert(0,date)
 
 
 
@@ -106,14 +115,13 @@ def settings():
 
 
 def main():
+    
     global entry1
 
     clear_frame()
     
 
     frame = customtkinter.CTkFrame(master=root)
-    #FIXME ipadx
-    #frame.grid(row=0, column=0,pady=60,padx=60,ipadx=ix, ipady=iy)
     frame.grid(row=0, column=0,pady=60,padx=60,ipadx=ix, ipady=iy)
 
     label = customtkinter.CTkLabel(master=frame, text='Ship\'s Diary',font=('Roboto',26))
@@ -124,6 +132,7 @@ def main():
 
     entry2 = customtkinter.CTkEntry(master=frame,placeholder_text=loader.getDay(),font=my_font)
     entry2.grid(row=2, column=0,pady=12,padx=12)
+    
 
     startB = customtkinter.CTkButton(master=frame, text='Start Diary',command=login,font=my_font)
     startB.grid(row=3, column=0,pady=12,padx=12)
@@ -166,15 +175,15 @@ def main():
     switch_5.grid(row=4, column=1,padx=20, pady=10)
 
 
-    if helpergui.set("pdf"):
+    if helpergui.setFormat("pdf"):
         switch_1.select(1)
-    if helpergui.set("docx"):
+    if helpergui.setFormat("docx"):
         switch_2.select(1)
-    if helpergui.set("pptx"):
+    if helpergui.setFormat("pptx"):
         switch_3.select(1)
-    if helpergui.set("html"):
+    if helpergui.setFormat("html"):
         switch_4.select(1)
-    if helpergui.set("latex"):
+    if helpergui.setFormat("latex"):
         switch_5.select(1)
 
 main()
