@@ -33,7 +33,7 @@ def inseretexto(path,fich,new): # dado o diretorio da pasta adiciona ao texto.tx
         dia = x.day
         aula.write(f'---\ntitle: \"Ship\'s Logs\"\nauthor: {user} \ndate: {mes} {dia}, {ano}\ngeometry: margin=2cm\noutput: pdf_document\nfontsize: 100pt\n---\n')
         aula.close()
-
+ 
                 
     if "ocr" in fich:
         ocrt = gettext(ff)

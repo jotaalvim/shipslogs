@@ -19,3 +19,6 @@ def set(format):
 
     return data['export_formats'][format]
     
+
+
+# FIXME fazer as funções de sttrings, setPaths ...

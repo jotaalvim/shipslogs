@@ -2,43 +2,59 @@ import customtkinter
 import loader
 import helpergui
 
-#my_font = customtkinter.CTkFont(family="familia", size=24)
+
+#===============================================================================
+count = 0
+def alert():
+    global count
+    if count < 10:
+        entry1.configure(fg_color='#FF7F7F')
+        root.after(10, alert)
+        count +=1
+    else:
+        entry1.configure(fg_color='white')
+        count = 0
+
 my_font = ('Arial',20)
 
+#===============================================================================
+
+def login():
+    if entry1.get() == '':
+        alert()
+    else:
+        print("start",entry1.get())
+
+#===============================================================================
 
 customtkinter.set_appearance_mode("light")
 customtkinter.set_default_color_theme("dark-blue")
 
-
 root = customtkinter.CTk()
 
-root.geometry("415x335")
+root.geometry("420x385")
+
+#frames = {"settings": None}
 
 
-def login():
-    print("click teste")
+
 
 
 frame = customtkinter.CTkFrame(master=root)
-#frame.grid(row=0, column=0,pady=20,padx=60, fill='both',expand=True)
-frame.grid(row=0, column=0,pady=20,padx=60)
+frame.grid(row=0, column=0,pady=60,padx=60)
 
 label = customtkinter.CTkLabel(master=frame, text='Ship\'s Diary',font=('Roboto',26))
+label.grid(row=0, column=0,pady=12,padx=12)
 
-label.grid(row=0, column=0,pady=12,padx=10)
 
-
-entry1 = customtkinter.CTkEntry(master=frame,placeholder_text='domain name',font=my_font)
-entry1.grid(row=1, column=0,pady=12,padx=10)
+entry1 = customtkinter.CTkEntry(master=frame,placeholder_text='topic name',font=my_font)
+entry1.grid(row=1, column=0,pady=12,padx=12)
 
 entry2 = customtkinter.CTkEntry(master=frame,placeholder_text=loader.getDay(),font=my_font)
-entry2.grid(row=2, column=0,pady=12,padx=10)
+entry2.grid(row=2, column=0,pady=12,padx=12)
 
 button = customtkinter.CTkButton(master=frame, text='Start Diary',command=login,font=my_font)
-button.grid(row=3, column=0,pady=12,padx=10)
-
-
-#my_font.configure(family="familia")
+button.grid(row=3, column=0,pady=12,padx=12)
 
 
 def switch_event1():
@@ -62,7 +78,6 @@ def switch_event5():
 switch_1 = customtkinter.CTkSwitch(master=frame, text="pdf", command=switch_event1,font=my_font)
 switch_1.grid(row=0, column=1,padx=20, pady=10)
 
-
 switch_2 = customtkinter.CTkSwitch(master=frame, text="docx", command=switch_event2,font=my_font)
 switch_2.grid(row=1, column=1,padx=20, pady=10)
 
@@ -71,7 +86,6 @@ switch_3.grid(row=2, column=1,padx=20, pady=10)
 
 switch_4 = customtkinter.CTkSwitch(master=frame, text="html", command=switch_event4,font=my_font)
 switch_4.grid(row=3, column=1,padx=20, pady=10)
-
 
 switch_5 = customtkinter.CTkSwitch(master=frame, text="latex", command=switch_event5,font=my_font)
 switch_5.grid(row=4, column=1,padx=20, pady=10)
@@ -87,9 +101,6 @@ if helpergui.set("html"):
     switch_4.select(1)
 if helpergui.set("latex"):
     switch_5.select(1)
-
-
-
 
 
 root.mainloop()
