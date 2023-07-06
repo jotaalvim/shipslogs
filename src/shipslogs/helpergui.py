@@ -38,8 +38,9 @@ def setSettings(info):
         data = json.load(json_file)
     
     a,o,i,f = info
-    #if a != '':
-    #    data['author_name'] = a
+    #FIXME
+    if a != '':
+        data['author_name'] = a
     if o != '':
         data['diary_output'] = o
     if i != '':

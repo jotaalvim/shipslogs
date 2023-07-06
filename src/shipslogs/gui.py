@@ -16,11 +16,15 @@ def alert():
         count = 0
 
 
-
 #===============================================================================
 
 def saveSettings():
-    print("salvar settings")
+    save.configure(fg_color='#7aeb7a')
+    helpergui.setSettings((
+        nameEntry.get(),
+        pathIEntry.get(),
+        pathOEntry.get(),
+        dateFormatEntry.get() ))
 
 
 def login():
@@ -54,7 +58,7 @@ my_font = ('Arial',20)
 
 def clear_frame():
     for widgets in root.winfo_children():
-        print(widgets)
+        #print(widgets)
         widgets.destroy()
 
 
@@ -63,6 +67,12 @@ def clear_frame():
 def settings():
     clear_frame()
     global frame
+    global nameEntry
+    global pathIEntry
+    global pathOEntry
+    global dateFormatEntry
+    global save
+
     aname, out, sin, date = helpergui.getSettings()
 
     frame = customtkinter.CTkFrame(master=root)
@@ -71,7 +81,7 @@ def settings():
     ships = customtkinter.CTkLabel(master=frame, text='Ship\'s Diary',font=('Roboto',26))
     ships.grid(row=0, column=2,pady=12,padx=12)
 
-    # FIXME label de merda
+    # FIXME label
     labelS = customtkinter.CTkLabel(master=frame, text='Settings',font=my_font)
     labelS.grid(row=1, column=0,pady=12,padx=12)
 
@@ -107,8 +117,9 @@ def settings():
 
     save = customtkinter.CTkButton(master=frame, text='Save',command=saveSettings,font=my_font)
     save.grid(row=6, column=3,pady=12,padx=12)
+    save.configure(fg_color='#7aeb7a',text_color = 'black')
 
-    back = customtkinter.CTkButton(master=frame, text='Back',command=main,font=my_font)
+    back = customtkinter.CTkButton(master=frame, text='Back',command=main,font=my_font,text_color = 'black')
     back.grid(row=6, column=0,pady=12,padx=12)
 
 #===============================================================================

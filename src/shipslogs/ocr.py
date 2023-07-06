@@ -46,6 +46,3 @@ def inseretexto(path,fich,new): # dado o diretorio da pasta adiciona ao texto.tx
         aula.write(f"\n![]({ff})\n")
         #aula.write("\n---\n")
     aula.close()
-
-
- 
