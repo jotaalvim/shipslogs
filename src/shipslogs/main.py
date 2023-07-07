@@ -10,10 +10,9 @@ from loader import getDay,getNewName
 import datetime
 import ocr
 import json
-import subprocess 
-import signal    
-import sys    
-#from transcript import transcript2
+import subprocess
+import signal
+import sys
 
 #FAZER DEPOISSS RECEBER ARGUMENTOS
 #PERGUNTAR PELO COMPRIMENTO
@@ -39,8 +38,6 @@ if "-h" in argv:
 
 
 
-
-
 #user
 user = getuser()
 
@@ -50,24 +47,21 @@ with open('config.json') as json_file:
     data = json.load(json_file)
 # defenir diretorio default de entrada
 if data['screenshot_input']=='':
-    pics = os.path.join('home',user,'Pictures')
-    #pics = f'/home/{user}/Pictures/'
+    pics = os.path.join('home',user,'Pictures') #pics = f'/home/{user}/Pictures/'
 else:
     pics = data['screenshot_input']
 
 #diretorio default para guardar
 if data['diary_output']=='': # FIXME
-    pathpasta = os.path.join('home',user,'Documents','shipslogs')
-    #pathpasta = f'/home/{user}/Documents/aulas'
+    pathpasta = os.path.join('home',user,'Documents','hipslogss') #pathpasta = f'/home/{user}/Documents/aulas'
 else:
     pathpasta = data['diary_output']
 
 
 
 #pathpasta+=data["diary_home"]
-#cria a pasta da aulas se nao existir
+#cria a pasta de outrput topic se nao existir
 os.system('mkdir -p ' + pathpasta)
-
 
 
 

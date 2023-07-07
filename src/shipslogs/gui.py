@@ -1,8 +1,10 @@
 import customtkinter
 import loader
 import helpergui
-
-
+import subprocess
+import signal
+from tkinter import *
+from PIL import  Image, ImageTk
 #===============================================================================
 count = 0
 def alert():
@@ -19,7 +21,7 @@ def alert():
 #===============================================================================
 
 def saveSettings():
-    save.configure(fg_color='#7aeb7a')
+    #save.configure(fg_color='#7aeb7a')
     helpergui.setSettings((
         nameEntry.get(),
         pathIEntry.get(),
@@ -27,11 +29,32 @@ def saveSettings():
         dateFormatEntry.get() ))
 
 
-def login():
-    if entry1.get() == '':
+
+stop = True
+def start():
+    global p
+    global stop
+    if entry1.get() == '' and stop != False:
         alert()
     else:
-        print("start",entry1.get())
+        if stop == True:
+            # FIXME path para os ficheiros?
+            topic = entry1.get()
+            subtopic = entry2.get()
+            print("start",topic, subtopic)
+            helpergui.setTopics((topic,subtopic))
+            #start a subprocess
+            p = subprocess.Popen(['python', 'main.py', topic, subtopic])
+            startB.configure(hover_color ='#fa4646', fg_color='#FF7F7F',text_color = 'black',text='STOP Diary')
+            stop = not stop
+        elif not stop:
+        #send the SIGTERM signal to the subprocess
+            p.send_signal(signal.SIGINT)
+            stop = not stop
+            # FIXME
+            #startB.configure(hover_color ='#', fg_color='#',text_color = 'white',text='Start Diary')
+
+
 
 #===============================================================================
 
@@ -40,32 +63,34 @@ customtkinter.set_default_color_theme("dark-blue")
 
 root = customtkinter.CTk()
 
+root.title("Ship's Diary")  
 height = 585
 width  = 800
+root.geometry(f'{width}x{height}')
+
 
 ix = 100#width - 60*3
 iy = 100#height - 60*3
-#print(ix,iy)
-
-root.geometry(f'{width}x{height}')
-root.title("Ship's Diary")
-
 
 my_font = ('Arial',20)
+
+setting_image = ImageTk.PhotoImage(Image.open('assets/setting.png').resize((28,28),Image.ANTIALIAS))
+
 
 #===============================================================================
 
 
 def clear_frame():
     for widgets in root.winfo_children():
-        #print(widgets)
         widgets.destroy()
+        #widgets.grid_forget()
 
 
 
 
 def settings():
     clear_frame()
+
     global frame
     global nameEntry
     global pathIEntry
@@ -75,15 +100,16 @@ def settings():
 
     aname, out, sin, date = helpergui.getSettings()
 
+
     frame = customtkinter.CTkFrame(master=root)
     frame.grid(row=0, column=0,pady=60,padx=60,ipadx=ix, ipady=iy)
 
-    ships = customtkinter.CTkLabel(master=frame, text='Ship\'s Diary',font=('Roboto',26))
+    ships = customtkinter.CTkLabel(master=frame, text='Ship\'s Diary Settings',font=('Roboto',26))
     ships.grid(row=0, column=2,pady=12,padx=12)
 
     # FIXME label
-    labelS = customtkinter.CTkLabel(master=frame, text='Settings',font=my_font)
-    labelS.grid(row=1, column=0,pady=12,padx=12)
+    #labelS = customtkinter.CTkLabel(master=frame, text='Settings',font=my_font)
+    #labelS.grid(row=1, column=0,pady=12,padx=12)
 
     name = customtkinter.CTkLabel(master=frame, text='Authors Name',font=my_font)
     name.grid(row=2, column=0,pady=12,padx=12)
@@ -117,9 +143,9 @@ def settings():
 
     save = customtkinter.CTkButton(master=frame, text='Save',command=saveSettings,font=my_font)
     save.grid(row=6, column=3,pady=12,padx=12)
-    save.configure(fg_color='#7aeb7a',text_color = 'black')
+    #save.configure(fg_color='#7aeb7a',text_color = 'black')
 
-    back = customtkinter.CTkButton(master=frame, text='Back',command=main,font=my_font,text_color = 'black')
+    back = customtkinter.CTkButton(master=frame, text='Back',command=main,font=my_font)
     back.grid(row=6, column=0,pady=12,padx=12)
 
 #===============================================================================
@@ -128,9 +154,11 @@ def settings():
 def main():
     
     global entry1
+    global entry2
+    global startB
 
     clear_frame()
-    
+
 
     frame = customtkinter.CTkFrame(master=root)
     frame.grid(row=0, column=0,pady=60,padx=60,ipadx=ix, ipady=iy)
@@ -145,10 +173,19 @@ def main():
     entry2.grid(row=2, column=0,pady=12,padx=12)
     
 
-    startB = customtkinter.CTkButton(master=frame, text='Start Diary',command=login,font=my_font)
+    startB = customtkinter.CTkButton(master=frame, text='Start Diary',command=start,font=my_font)
     startB.grid(row=3, column=0,pady=12,padx=12)
+    if stop == False:
+        startB.configure(fg_color='#FF7F7F',text_color = 'black',text='STOP Diary')
+        top,sub = helpergui.getTopics()
+        entry1.insert(0,top)
+        if sub == '':
+            entry2.configure(placeholder_text=loader.getDay())
+        else: 
+            entry2.insert(0,sub)
 
-    settingsB = customtkinter.CTkButton(master=frame, text='Settings',command=settings,font=my_font)
+
+    settingsB = customtkinter.CTkButton(master=frame, text='Settings',command=settings,font=my_font,image= setting_image,compound ="left"  )
     settingsB.grid(row=4, column=0,pady=12,padx=12)
 
 

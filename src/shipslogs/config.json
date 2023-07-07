@@ -1,18 +1,1 @@
-{
-    "screenshot_input" : "/home/jotaalvim/Pictures/",
-
-    "diary_output":"/home/jotaalvim/Documents/aulas/",
-
-    "date_format":"YY-MM-DD",
-
-    "author_name" : "João Alvim",
-
-    "export_formats": {
-        "pdf": true,
-        "html": false,
-        "docx": false,
-        "latex" : false,
-        "pptx" : false
-    }
-
-}
+{"screenshot_input": "/home/jotaalvim/Pictures/", "diary_output": "/home/jotaalvim/Documents/aulas/", "date_format": "YY-MM-DD", "author_name": "Jo\u00e3o Alvim", "export_formats": {"pdf": true, "html": false, "docx": true, "latex": false, "pptx": true}, "last_topic": "", "last_subtopic": "", "last_topic_used": "lalalal", "last_subtopic_used": ""}

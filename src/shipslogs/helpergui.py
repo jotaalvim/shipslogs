@@ -1,27 +1,28 @@
 import json
+from getpass import getuser
 
+configPath = 'config.json'
 
 def toogleFormat(format):
-    with open('config.json') as json_file: 
+    with open(configPath) as json_file: 
         data = json.load(json_file)
 
     print( data['export_formats'])
     data['export_formats'][format] = not data['export_formats'][format] 
     print( data['export_formats'])
 
-    with open('config.json', 'w') as jsonFile:
+    with open(configPath, 'w') as jsonFile:
         json.dump(data, jsonFile)
 
 
 def setFormat(format):
-    with open('config.json') as json_file: 
+    with open(configPath) as json_file: 
         data = json.load(json_file)
-
     return data['export_formats'][format]
     
 
 def getSettings():
-    with open('config.json') as json_file: 
+    with open(configPath) as json_file: 
         data = json.load(json_file)
 
     # FIXME devia usar isto na main 
@@ -34,7 +35,7 @@ def getSettings():
     return (name, data['diary_output'], data['screenshot_input'],data['date_format'])
 
 def setSettings(info):
-    with open('config.json') as json_file: 
+    with open(configPath) as json_file: 
         data = json.load(json_file)
     
     a,o,i,f = info
@@ -48,5 +49,25 @@ def setSettings(info):
     if f != '':
         data['date_format'] = f
 
-    with open('config.json', 'w') as jsonFile:
+    with open(configPath, 'w') as jsonFile:
         json.dump(data, jsonFile)
+
+
+
+
+def getTopics():
+    with open(configPath) as json_file: 
+        data = json.load(json_file)
+    return (data['last_topic_used'],data['last_subtopic_used'])
+
+def setTopics(info):
+    t,s = info
+    with open(configPath) as json_file: 
+        data = json.load(json_file)
+    
+    data['last_topic_used'] = t
+    data['last_subtopic_used'] = s
+
+    with open(configPath, 'w') as jsonFile:
+        json.dump(data, jsonFile)
+
