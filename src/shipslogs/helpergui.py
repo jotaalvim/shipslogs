@@ -53,8 +53,6 @@ def setSettings(info):
         json.dump(data, jsonFile)
 
 
-
-
 def getTopics():
     with open(configPath) as json_file: 
         data = json.load(json_file)

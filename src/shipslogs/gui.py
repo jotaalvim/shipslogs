@@ -44,15 +44,16 @@ def start():
             print("start",topic, subtopic)
             helpergui.setTopics((topic,subtopic))
             #start a subprocess
+            print('python', 'main.py', topic, subtopic)
             p = subprocess.Popen(['python', 'main.py', topic, subtopic])
-            startB.configure(hover_color ='#fa4646', fg_color='#FF7F7F',text_color = 'black',text='STOP Diary')
+            startB.configure(hover_color ='#fa4646', fg_color='#FF7F7F',text='STOP Diary')
             stop = not stop
         elif not stop:
         #send the SIGTERM signal to the subprocess
             p.send_signal(signal.SIGINT)
             stop = not stop
             # FIXME
-            #startB.configure(hover_color ='#', fg_color='#',text_color = 'white',text='Start Diary')
+            startB.configure(hover_color ='#0666c2', fg_color='#3A7EBF',text_color = 'white',text='Start Diary')
 
 
 
@@ -74,7 +75,7 @@ iy = 100#height - 60*3
 
 my_font = ('Arial',20)
 
-setting_image = ImageTk.PhotoImage(Image.open('assets/setting.png').resize((28,28),Image.ANTIALIAS))
+setting_image = ImageTk.PhotoImage(Image.open('assets/setting.png').resize((25,25),Image.ANTIALIAS))
 
 
 #===============================================================================
@@ -176,7 +177,7 @@ def main():
     startB = customtkinter.CTkButton(master=frame, text='Start Diary',command=start,font=my_font)
     startB.grid(row=3, column=0,pady=12,padx=12)
     if stop == False:
-        startB.configure(fg_color='#FF7F7F',text_color = 'black',text='STOP Diary')
+        startB.configure(fg_color='#FF7F7F',text='STOP Diary')
         top,sub = helpergui.getTopics()
         entry1.insert(0,top)
         if sub == '':

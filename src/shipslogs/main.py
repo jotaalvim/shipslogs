@@ -14,10 +14,11 @@ import subprocess
 import signal
 import sys
 
-#FAZER DEPOISSS RECEBER ARGUMENTOS
-#PERGUNTAR PELO COMPRIMENTO
-#pri = sys.argv[1]
-argv = sys.argv
+
+
+
+#argv = sys.argv
+argv = [i for i in sys.argv if i]
 
 opcs,args = (argv[1:],"h")
 
@@ -67,7 +68,6 @@ os.system('mkdir -p ' + pathpasta)
 
 
 def getDayPath(datadodia=getDay()):
-    #datadodia = getDay()
     if len(argv) > 1: 
         topic = argv[1]
     else:
@@ -86,11 +86,12 @@ class MyHandler(FileSystemEventHandler):
         else:
             base = getDayPath()
 
-        print(base)
+        print("base=",base)
 
         images = os.path.join(base,'images')
         if not os.path.exists(base):
             os.system(f'mkdir -p {base}')
+            
             os.system(f'mkdir -p {images}')
         
         #fc = nome atnigo da nova foto
