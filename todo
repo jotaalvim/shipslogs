@@ -11,8 +11,7 @@ ir escrevendo a medida que é atualizado
     - muito complexo
 
 
-menu de settings
 
 fazer linking com as settings para pintar o botão de save e pintar de ver quando tiver tudo bem
 
-load do último topico a ser criado
+load do último topico a ser criado ==> devia ser variável global e não no json
