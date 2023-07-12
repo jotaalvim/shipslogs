@@ -54,7 +54,7 @@ else:
 
 #diretorio default para guardar
 if data['diary_output']=='': # FIXME
-    pathpasta = os.path.join('home',user,'Documents','hipslogss') #pathpasta = f'/home/{user}/Documents/aulas'
+    pathpasta = os.path.join('home',user,'Documents','shipslogss') #pathpasta = f'/home/{user}/Documents/aulas'
 else:
     pathpasta = data['diary_output']
 
@@ -63,9 +63,7 @@ else:
 #pathpasta+=data["diary_home"]
 #cria a pasta de outrput topic se nao existir
 os.system('mkdir -p ' + pathpasta)
-
-
-
+print("pathpasta = ", pathpasta)
 
 def getDayPath(datadodia=getDay()):
     if len(argv) > 1: 
@@ -89,10 +87,11 @@ class MyHandler(FileSystemEventHandler):
         print("base=",base)
 
         images = os.path.join(base,'images')
-        if not os.path.exists(base):
-            os.system(f'mkdir -p {base}')
-            
-            os.system(f'mkdir -p {images}')
+        
+        #if not os.path.exists(base):
+        os.system(f'mkdir -p {base}')
+        print("base creada")    
+        os.system(f'mkdir -p {images}')
         
         #fc = nome atnigo da nova foto
         _,fc = os.path.split(event.src_path)
@@ -130,7 +129,6 @@ Exporting diary
             diary = os.path.join(path,"shipslogs."+format)
             print(diary)
             os.system(f'pandoc -o {diary} {dbmd}')
-    
     sys.exit(0)
 
 

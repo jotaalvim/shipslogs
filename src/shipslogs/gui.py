@@ -24,8 +24,10 @@ def saveSettings():
     #save.configure(fg_color='#7aeb7a')
     helpergui.setSettings((
         nameEntry.get(),
-        pathIEntry.get(),
+        
         pathOEntry.get(),
+        pathIEntry.get(),
+
         dateFormatEntry.get() ))
 
 
