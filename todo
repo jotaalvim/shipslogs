@@ -15,3 +15,5 @@ ir escrevendo a medida que é atualizado
 fazer linking com as settings para pintar o botão de save e pintar de ver quando tiver tudo bem
 
 load do último topico a ser criado ==> devia ser variável global e não no json
+
+fechar a aplicação não para o diário de bordo, não posso 
