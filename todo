@@ -17,3 +17,7 @@ fazer linking com as settings para pintar o botão de save e pintar de ver quand
 load do último topico a ser criado ==> devia ser variável global e não no json
 
 fechar a aplicação não para o diário de bordo, não posso 
+
+
+
+FIX dos switches mudar para não guardar automaticamente
