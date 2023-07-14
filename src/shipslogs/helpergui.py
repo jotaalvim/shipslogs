@@ -3,6 +3,9 @@ from getpass import getuser
 
 configPath = 'config.json'
 
+## FIXME TOU A GUARDAR OS PATH AO CONTRÀRIO
+
+
 def toogleFormat(format):
     with open(configPath) as json_file: 
         data = json.load(json_file)

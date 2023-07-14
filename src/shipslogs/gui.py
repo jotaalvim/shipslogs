@@ -104,14 +104,15 @@ class App(customtkinter.CTk):
         App.frames["frame2"].pack(in_=self.right_side_container,side=tkinter.TOP, fill=tkinter.BOTH, expand=True, padx=0, pady=0)
     
     def __init__(self):
-        global entry1, entry2, startB, nameEntry, pathIEntry, pathOEntry, dateFormatEntry, save, lbl1
+        global entry1, entry2, startB, nameEntry, pathIEntry, pathOEntry, dateFormatEntry, save
 
         super().__init__()
         
         self.title("Ship's Diary")
-    
-        self.geometry("{0}x{0}+0+0".format(self.winfo_screenwidth(), self.winfo_screenheight()))
-    
+
+        #FIXME
+        #self.geometry(f'{self.winfo_screenwidth()}x{self.winfo_screenheight()}+0+0')
+        self.geometry('920x600+0+0')
 
 
         # right side panel -> to show the frame1 or frame 2
@@ -130,26 +131,26 @@ class App(customtkinter.CTk):
         #bt_from_frame1.place(relx=0.5, rely=0.5, anchor='n')
 
 
-        label = customtkinter.CTkLabel(App.frames['frame1'], text='Ship\'s Diary',font=('Roboto',40))
+        label = customtkinter.CTkLabel(App.frames['frame1'], text='Ship\'s Diary',font=('Roboto',60))
         #label.grid(row=0, column=0,pady=12,padx=12)
-        label.place(relx=0.5, rely=0.1, anchor='center')
+        label.place(relx=0.5, rely=0.26, anchor='center',)
 
         
 
         entry1 = customtkinter.CTkEntry(App.frames['frame1'],placeholder_text='topic name',font=my_font)
         #entry1.grid(row=1, column=0,pady=12,padx=12)
-        entry1.place(relx=0.5, rely=0.2, anchor='center')
+        entry1.place(relx=0.5, rely=0.4, anchor='center')
 
 
         entry2 = customtkinter.CTkEntry(App.frames['frame1'],placeholder_text=loader.getDay(),font=my_font)
         #entry2.grid(row=2, column=0,pady=12,padx=12)
-        entry2.place(relx=0.5, rely=0.3, anchor='center')
+        entry2.place(relx=0.5, rely=0.5, anchor='center')
 
     
 
         startB = customtkinter.CTkButton(App.frames['frame1'], text='Start Diary',command=start,font=my_font)
         #startB.grid(row=3, column=0,pady=12,padx=12)
-        startB.place(relx=0.5, rely=0.4, anchor='center')
+        startB.place(relx=0.5, rely=0.6, anchor='center')
 
 
         if stop == False:
@@ -164,9 +165,10 @@ class App(customtkinter.CTk):
 
         #settingsB = customtkinter.CTkButton(App.frames['frame1'], text='Settings',command=lambda:self.frame2_selector(),font=my_font,image= setting_image,compound ="left"  )
         # FIXME
-        settingsB = customtkinter.CTkButton(App.frames['frame1'], text='Settings',command=lambda:self.frame2_selector(),font=my_font)
+        settingsB = customtkinter.CTkButton(App.frames['frame1'], text='Settings',command=lambda:self.frame2_selector(),font=my_font,fg_color='#5e6e7d')
         #settingsB.grid(row=4, column=0,pady=12,padx=12)
-        settingsB.place(relx=0.5, rely=0.5, anchor='center')
+        settingsB.place(relx=0.5, rely=0.9, anchor='center')
+        
 
 
 
@@ -181,6 +183,7 @@ class App(customtkinter.CTk):
         aname, out, sin, date = helpergui.getSettings()
 
         ships = customtkinter.CTkLabel(App.frames['frame2'], text='Ship\'s Diary Settings',font=('Roboto',40))
+        #ships.grid(row=0, column=2,pady=12,padx=12)
         ships.grid(row=0, column=2,pady=12,padx=12)
         #ships.place(relx=0.5, rely=0.1, anchor='center')
 
@@ -189,7 +192,7 @@ class App(customtkinter.CTk):
         name = customtkinter.CTkLabel(App.frames['frame2'], text='Authors Name',font=my_font)
         name.grid(row=2, column=0,pady=12,padx=12)
 
-        nameEntry = customtkinter.CTkEntry(App.frames['frame2'],placeholder_text=aname,font=my_font,width = 400)
+        nameEntry = customtkinter.CTkEntry(App.frames['frame2'],placeholder_text=aname,font=my_font,width = 500)
         nameEntry.grid(row=2, column=1,columnspan=2,pady=12,padx=12)
         nameEntry.insert(0,aname)
 
@@ -202,7 +205,7 @@ class App(customtkinter.CTk):
         pathInput = customtkinter.CTkLabel(App.frames['frame2'], text='ScreenShot Input',font=my_font)
         pathInput.grid(row=3, column=0,pady=12,padx=12)
 
-        pathIEntry = customtkinter.CTkEntry(App.frames['frame2'],placeholder_text=sin,font=my_font,width = 400)
+        pathIEntry = customtkinter.CTkEntry(App.frames['frame2'],placeholder_text=sin,font=my_font,width = 500)
         pathIEntry.grid(row=3, column=1,columnspan=2,pady=12,padx=12)
         pathIEntry.insert(0,sin)
 
@@ -215,7 +218,7 @@ class App(customtkinter.CTk):
         pathOutput = customtkinter.CTkLabel(App.frames['frame2'], text='Diary Output',font=my_font)
         pathOutput.grid(row=4, column=0,pady=12,padx=12)
 
-        pathOEntry = customtkinter.CTkEntry(App.frames['frame2'],placeholder_text=out,font=my_font,width = 400)
+        pathOEntry = customtkinter.CTkEntry(App.frames['frame2'],placeholder_text=out,font=my_font,width = 500)
         pathOEntry.grid(row=4, column=1,columnspan=2,pady=12,padx=12)
         pathOEntry.insert(0,out)
 
@@ -224,7 +227,7 @@ class App(customtkinter.CTk):
         dateFormat = customtkinter.CTkLabel(App.frames['frame2'], text='Date format',font=my_font)
         dateFormat.grid(row=5, column=0,pady=12,padx=12)
 
-        dateFormatEntry = customtkinter.CTkEntry(App.frames['frame2'],placeholder_text=date,font=my_font,width = 400)
+        dateFormatEntry = customtkinter.CTkEntry(App.frames['frame2'],placeholder_text=date,font=my_font,width = 500)
         dateFormatEntry.grid(row=5, column=1,columnspan=2,pady=12,padx=12)
         dateFormatEntry.insert(0,date)
 
@@ -277,7 +280,7 @@ class App(customtkinter.CTk):
             switch_5.select(1)
 
         save = customtkinter.CTkButton(App.frames['frame2'], text='Save',command=saveSettings,font=my_font)
-        save.grid(row=10, column=3,pady=12,padx=12)
+        save.grid(row=10, column=3,pady=62,padx=12)
         #save.configure(fg_color='#7aeb7a',text_color = 'black')
 
         back = customtkinter.CTkButton(App.frames['frame2'], text='Back',command=lambda:self.frame1_selector(),font=my_font)
@@ -287,4 +290,5 @@ class App(customtkinter.CTk):
         self.frame1_selector()
 
 a = App()
+
 a.mainloop()

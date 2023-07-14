@@ -60,6 +60,7 @@ else:
 
 
 
+
 #pathpasta+=data["diary_home"]
 #cria a pasta de outrput topic se nao existir
 os.system('mkdir -p ' + pathpasta)
@@ -88,10 +89,9 @@ class MyHandler(FileSystemEventHandler):
 
         images = os.path.join(base,'images')
         
-        #if not os.path.exists(base):
-        os.system(f'mkdir -p {base}')
-        print("base creada")    
-        os.system(f'mkdir -p {images}')
+        if not os.path.exists(base):
+            os.system(f'mkdir -p {base}')  
+            os.system(f'mkdir -p {images}')
         
         #fc = nome atnigo da nova foto
         _,fc = os.path.split(event.src_path)
@@ -128,7 +128,8 @@ Exporting diary
         if dfor[format]:
             diary = os.path.join(path,"shipslogs."+format)
             print(diary)
-            os.system(f'pandoc -o {diary} {dbmd}')
+            # FIXME 
+            os.system(f'pandoc -s -o {diary} {dbmd}')
     sys.exit(0)
 
 
