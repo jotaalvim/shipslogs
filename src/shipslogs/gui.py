@@ -170,11 +170,6 @@ class App(customtkinter.CTk):
         settingsB.place(relx=0.5, rely=0.9, anchor='center')
         
 
-
-
-
-
-
         #===============================================================================
         # SETTINGS
 
@@ -199,7 +194,7 @@ class App(customtkinter.CTk):
 
 
         # BROWSE INPUT filesystem
-        buttonBrowse = customtkinter.CTkButton(App.frames['frame2'], text='browse',command=browse_button,font=my_font)
+        buttonBrowse = customtkinter.CTkButton(App.frames['frame2'], text='browse',command=browse_button,font=my_font,width = 50)
         buttonBrowse.grid(row=3, column=3,pady=12,padx=12)
 
         pathInput = customtkinter.CTkLabel(App.frames['frame2'], text='ScreenShot Input',font=my_font)
@@ -212,7 +207,7 @@ class App(customtkinter.CTk):
 
 
         # BROWSE OUTPUT filesystem
-        buttonBrowse2 = customtkinter.CTkButton(App.frames['frame2'], text='browse',command=browse_button2,font=my_font)
+        buttonBrowse2 = customtkinter.CTkButton(App.frames['frame2'], text='browse',command=browse_button2,font=my_font,width = 50)
         buttonBrowse2.grid(row=4, column=3,pady=12,padx=12)
 
         pathOutput = customtkinter.CTkLabel(App.frames['frame2'], text='Diary Output',font=my_font)

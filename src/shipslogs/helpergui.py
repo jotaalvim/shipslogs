@@ -3,7 +3,7 @@ from getpass import getuser
 
 configPath = 'config.json'
 
-## FIXME TOU A GUARDAR OS PATH AO CONTRÀRIO
+
 
 
 def toogleFormat(format):
@@ -41,8 +41,8 @@ def setSettings(info):
     with open(configPath) as json_file: 
         data = json.load(json_file)
     
-    a,o,i,f = info
-    #FIXME
+    a,i,o,f = info
+    
     if a != '':
         data['author_name'] = a
     if o != '':
