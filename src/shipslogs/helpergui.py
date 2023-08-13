@@ -7,11 +7,12 @@ configPath = 'config.json'
 
 
 def toogleFormat(format):
+    
     with open(configPath) as json_file: 
         data = json.load(json_file)
 
     print( data['export_formats'])
-    data['export_formats'][format] = not data['export_formats'][format] 
+    data['export_formats'][format] = not data['export_formats'][format]
     print( data['export_formats'])
 
     with open(configPath, 'w') as jsonFile:

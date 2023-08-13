@@ -18,6 +18,3 @@ load do último topico a ser criado ==> devia ser variável global e não no jso
 
 fechar a aplicação não para o diário de bordo, não posso 
 
-
-
-FIX dos switches mudar para não guardar automaticamente

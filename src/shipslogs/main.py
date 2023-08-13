@@ -29,6 +29,7 @@ if "-h" in argv:
             configurar paths,autor  : /home/dbordo/config.json
             
             options: -h --help
+                      -
 
             
             if the words 'ocr' is in the image name then a ocr operation 

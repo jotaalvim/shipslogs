@@ -71,6 +71,18 @@ def saveSettings():
         pathIEntry.get(),
         pathOEntry.get(),
         dateFormatEntry.get() ))
+    if helpergui.setFormat("pdf")   != switch_1.get():
+        helpergui.toogleFormat("pdf")
+    if helpergui.setFormat("docx")  != switch_2.get():
+        helpergui.toogleFormat("docx")
+    if helpergui.setFormat("pptx")  != switch_3.get():
+        helpergui.toogleFormat("pptx")
+    if helpergui.setFormat("html")  != switch_4.get():
+        helpergui.toogleFormat("html")
+    if helpergui.setFormat("latex") != switch_5.get():
+        helpergui.toogleFormat("latex")
+
+    
 
 
 def browse_button():
@@ -91,11 +103,37 @@ def browse_button2():
 
 #===============================================================================
 
+def updateSwitch():
+    if helpergui.setFormat("pdf"):  
+        switch_1.select()
+    else:
+        switch_1.deselect()
+    if helpergui.setFormat("docx"):
+        switch_2.select()
+    else:
+        switch_2.deselect()
+    if helpergui.setFormat("pptx"):
+        switch_3.select()
+    else:
+        switch_3.deselect()
+    if helpergui.setFormat("html"):
+        switch_4.select()
+    else:
+        switch_4.deselect()
+    if helpergui.setFormat("latex"):
+        switch_5.select()
+    else:
+        switch_5.deselect()
+        
+#===============================================================================
+
 class App(customtkinter.CTk):
 
     frames = {"frame1": None, "frame2": None}
 
     def frame1_selector(self):
+        # FIXME adicionei para corrigir a cenas dos dwitches
+        updateSwitch()
         App.frames["frame2"].pack_forget()
         App.frames["frame1"].pack(in_=self.right_side_container,side=tkinter.TOP, fill=tkinter.BOTH, expand=True, padx=0, pady=0)
     
@@ -105,6 +143,7 @@ class App(customtkinter.CTk):
     
     def __init__(self):
         global entry1, entry2, startB, nameEntry, pathIEntry, pathOEntry, dateFormatEntry, save
+        global switch_1, switch_2, switch_3, switch_4, switch_5
 
         super().__init__()
         
@@ -230,20 +269,24 @@ class App(customtkinter.CTk):
         exportFormat = customtkinter.CTkLabel(App.frames['frame2'], text='Export formats',font=('Roboto',26))
         exportFormat.grid(row=6, column=0,pady=12,padx=12)
 
+
+
+        # FIXME
         def switch_event1():
-            helpergui.toogleFormat("pdf")
-
+            print("toogle pdf")
+            #helpergui.toogleFormat("pdf")
         def switch_event2():
-            helpergui.toogleFormat("docx")
-
+            print("toogle docx")
+            #helpergui.toogleFormat("docx")
         def switch_event3():
-            helpergui.toogleFormat("pptx")
-
+            print("toogle pptx")
+            #helpergui.toogleFormat("pptx")
         def switch_event4():
-            helpergui.toogleFormat("html")
-
+            print("toogle html")
+            #helpergui.toogleFormat("html")
         def switch_event5():
-            helpergui.toogleFormat("latex")
+            print("toogle latex")
+            #helpergui.toogleFormat("latex")
 
 
         switch_1 = customtkinter.CTkSwitch(App.frames['frame2'], text="pdf", command=switch_event1,font=my_font)
@@ -262,17 +305,7 @@ class App(customtkinter.CTk):
         switch_5.grid(row=9, column=0,padx=20, pady=10)
 
 
-
-        if helpergui.setFormat("pdf"):
-            switch_1.select(1)
-        if helpergui.setFormat("docx"):
-            switch_2.select(1)
-        if helpergui.setFormat("pptx"):
-            switch_3.select(1)
-        if helpergui.setFormat("html"):
-            switch_4.select(1)
-        if helpergui.setFormat("latex"):
-            switch_5.select(1)
+        updateSwitch()
 
         save = customtkinter.CTkButton(App.frames['frame2'], text='Save',command=saveSettings,font=my_font)
         save.grid(row=10, column=3,pady=62,padx=12)
