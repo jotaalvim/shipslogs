@@ -1,6 +1,8 @@
-# ship's log
+# 🛳 ship's log
 The original idea was born in an hackaton in 2020, this new version, ship's logs, is an 
-improvement of the original [Diário de Bordo](https://github.com/lumafepe/hackathon20-21)
+improvement of the original [Diário de Bordo](https://github.com/lumafepe/hackathon20-21).
+
+🛳 ship's log is an app that enable us to **keep a record of printcreens** we make during an event such as a talk, metting, online class. When you reach the end of your task a pdf, doxc or other file extension specified will be created whith every print you took. It's possible to **extract the text from your printscreen** to the output file by have the string 'ocr' whith in your print file name. This feature is usefull when someone is presenting text that you need to get.
 
 ### Usage
 Uses the current day as the default name to the subtopic where the output is going to be generated
