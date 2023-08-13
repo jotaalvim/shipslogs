@@ -25,7 +25,7 @@ my_font = ('Arial',20)
 
 stop = True
 def start():
-    global p
+    global p, stop, last_subtopic_used, last_topic_used
     global stop
     if entry1.get() == '' and stop != False:
         alert()
@@ -35,7 +35,12 @@ def start():
             topic = entry1.get()
             subtopic = entry2.get()
             print("start",topic, subtopic)
-            helpergui.setTopics((topic,subtopic))
+            
+            last_subtopic_used = subtopic
+            last_topic_used = topic
+            print("new start",last_topic_used , last_subtopic_used )
+            #helpergui.setTopics((topic,subtopic))
+
             #start a subprocess
             print('python', 'main.py', topic, subtopic)
             p = subprocess.Popen(['python', 'main.py', topic, subtopic])
@@ -124,8 +129,12 @@ def updateSwitch():
         switch_5.select()
     else:
         switch_5.deselect()
-        
+
 #===============================================================================
+# Global variables to keep track of the created diary when out of the home menu
+last_topic_used = ''
+last_subtopic_used = ''
+
 
 class App(customtkinter.CTk):
 
@@ -170,7 +179,7 @@ class App(customtkinter.CTk):
         #bt_from_frame1.place(relx=0.5, rely=0.5, anchor='n')
 
 
-        label = customtkinter.CTkLabel(App.frames['frame1'], text='Ship\'s Diary',font=('Roboto',60))
+        label = customtkinter.CTkLabel(App.frames['frame1'], text='🛳 Ship\'s Diary',font=('Roboto',60))
         #label.grid(row=0, column=0,pady=12,padx=12)
         label.place(relx=0.5, rely=0.26, anchor='center',)
 
@@ -194,7 +203,7 @@ class App(customtkinter.CTk):
 
         if stop == False:
             startB.configure(fg_color='#FF7F7F',text='STOP Diary')
-            top,sub = helpergui.getTopics()
+            top,sub = last_topic_used , last_subtopic_used #helpergui.getTopics()
             entry1.insert(0,top)
             if sub == '':
                 entry2.configure(placeholder_text=loader.getDay())

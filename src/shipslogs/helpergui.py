@@ -7,7 +7,7 @@ configPath = 'config.json'
 
 
 def toogleFormat(format):
-    
+
     with open(configPath) as json_file: 
         data = json.load(json_file)
 
@@ -57,19 +57,19 @@ def setSettings(info):
         json.dump(data, jsonFile)
 
 
-def getTopics():
-    with open(configPath) as json_file: 
-        data = json.load(json_file)
-    return (data['last_topic_used'],data['last_subtopic_used'])
-
-def setTopics(info):
-    t,s = info
-    with open(configPath) as json_file: 
-        data = json.load(json_file)
-    
-    data['last_topic_used'] = t
-    data['last_subtopic_used'] = s
-
-    with open(configPath, 'w') as jsonFile:
-        json.dump(data, jsonFile)
-
+#def getTopics():
+#    with open(configPath) as json_file: 
+#        data = json.load(json_file)
+#    return (data['last_topic_used'],data['last_subtopic_used'])
+#
+#def setTopics(info):
+#    t,s = info
+#    with open(configPath) as json_file: 
+#        data = json.load(json_file)
+#    
+#    data['last_topic_used'] = t
+#    data['last_subtopic_used'] = s
+#
+#    with open(configPath, 'w') as jsonFile:
+#        json.dump(data, jsonFile)
+#
